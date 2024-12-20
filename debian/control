@@ -1,0 +1,13 @@
+Source: myproject
+Section: misc
+Priority: optional
+Maintainer: Your Name <katyaslusar2004@gmail.com>
+Build-Depends: debhelper (>= 9), g++, make, autoconf, automake, libtool
+Standards-Version: 3.9.6
+Homepage: http://example.com
+
+Package: myproject
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: MyProject is a sample project
+ This is a longer description of MyProject.

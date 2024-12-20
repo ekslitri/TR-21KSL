@@ -1,0 +1,11 @@
+Package: myproject
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Your Name <katyaslusar2004@gmail.com>
+Installed-Size: 23
+Depends: libc6 (>= 2.34), libstdc++6 (>= 4.4)
+Section: misc
+Priority: optional
+Homepage: http://example.com
+Description: MyProject is a sample project
+ This is a longer description of MyProject.

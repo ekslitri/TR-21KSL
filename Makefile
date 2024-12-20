@@ -106,7 +106,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_UnitTest_OBJECTS = UnitTest.$(OBJEXT) MyClass.$(OBJEXT)
 UnitTest_OBJECTS = $(am_UnitTest_OBJECTS)
 UnitTest_LDADD = $(LDADD)
-am_main_OBJECTS = main.$(OBJEXT) MyClass.$(OBJEXT)
+am_main_OBJECTS = main.$(OBJEXT) MyClass.$(OBJEXT) \
+	HTTP_Server.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
 main_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -124,7 +125,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/MyClass.Po ./$(DEPDIR)/UnitTest.Po \
+am__depfiles_remade = ./$(DEPDIR)/HTTP_Server.Po \
+	./$(DEPDIR)/MyClass.Po ./$(DEPDIR)/UnitTest.Po \
 	./$(DEPDIR)/main.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -478,7 +480,7 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-main_SOURCES = main.cpp MyClass.cpp
+main_SOURCES = main.cpp MyClass.cpp HTTP_Server.cpp
 UnitTest_SOURCES = UnitTest.cpp MyClass.cpp
 all: all-am
 
@@ -577,6 +579,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/HTTP_Server.Po # am--include-marker
 include ./$(DEPDIR)/MyClass.Po # am--include-marker
 include ./$(DEPDIR)/UnitTest.Po # am--include-marker
 include ./$(DEPDIR)/main.Po # am--include-marker
@@ -1043,7 +1046,8 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f ./$(DEPDIR)/MyClass.Po
+		-rm -f ./$(DEPDIR)/HTTP_Server.Po
+	-rm -f ./$(DEPDIR)/MyClass.Po
 	-rm -f ./$(DEPDIR)/UnitTest.Po
 	-rm -f ./$(DEPDIR)/main.Po
 	-rm -f Makefile
@@ -1093,7 +1097,8 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f ./$(DEPDIR)/MyClass.Po
+		-rm -f ./$(DEPDIR)/HTTP_Server.Po
+	-rm -f ./$(DEPDIR)/MyClass.Po
 	-rm -f ./$(DEPDIR)/UnitTest.Po
 	-rm -f ./$(DEPDIR)/main.Po
 	-rm -f Makefile

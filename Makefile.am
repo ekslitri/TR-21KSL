@@ -1,5 +1,5 @@
 bin_PROGRAMS = main
-main_SOURCES = main.cpp MyClass.cpp
+main_SOURCES = main.cpp MyClass.cpp HTTP_Server.cpp
 
 check_PROGRAMS = UnitTest
 UnitTest_SOURCES = UnitTest.cpp MyClass.cpp

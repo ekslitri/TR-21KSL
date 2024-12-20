@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: ["branchAutoPackage"]
+    branches: ["branchAutoTest"]
   pull_request:
-    branches: ["branchAutoPackage"]
+    branches: ["branchAutoTest"]
 
 jobs:
   build:
@@ -27,21 +27,6 @@ jobs:
 
       - name: Run tests
         run: make check
-
-      - name: Create distribution tarball
-        run: make dist
-
-      - name: Build Debian package
-        run: dpkg-buildpackage -us -uc
-
-      - name: Move Debian Package
-        run: mv ../myproject_1.0-1_amd64.deb .
-
-      - name: Upload Debian Package
-        uses: actions/upload-artifact@v4
-        with:
-          name: myproject-deb
-          path: myproject_1.0-1_amd64.deb
 
       - name: Clean up
         run: make clean

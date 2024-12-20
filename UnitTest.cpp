@@ -5,7 +5,9 @@
 void testMyClass() {
     MyClass obj;
     int expectedValue = 42; // Example expected value
-    assert(obj.FuncA(10, 1.0) == expectedValue); // Assuming FuncA is the method to test
+    int result = obj.FuncA(10, 1.0); // Assuming FuncA is the method to test
+    std::cout << "Result: " << result << std::endl;
+    assert(result == expectedValue);
     std::cout << "All tests passed!" << std::endl;
 }
 

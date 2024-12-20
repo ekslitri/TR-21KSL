@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: ["branchMake"]
+    branches: ["branchAutomake"]
   pull_request:
-    branches: ["branchMake"]
+    branches: ["branchAutomake"]
 
 jobs:
   build:
@@ -12,11 +12,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y g++ make
-      #- name: configure
-      # run: ./configure
-      - name: make
+        run: sudo apt-get update && sudo apt-get install -y g++ make autoconf automake libtool
+
+      - name: Bootstrap
+        run: autoreconf -i
+
+      - name: Configure
+        run: ./configure
+
+      - name: Build
         run: make
+
+      - name: Run tests
+        run: make check
+
+      - name: Create distribution tarball
+        run: make dist
+
+      - name: Upload distribution tarball
+        uses: actions/upload-artifact@v2
+        with:
+          name: distribution-tarball
+          path: "*.tar.gz"
+
       - name: Clean up
         run: make clean

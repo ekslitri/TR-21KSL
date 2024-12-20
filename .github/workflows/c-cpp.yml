@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y g++ make autoconf automake libtool debhelper build-essential
+        run: sudo apt-get update && sudo apt-get install -y g++ make autoconf automake libtool
 
       - name: Bootstrap
         run: autoreconf -i
@@ -28,5 +28,26 @@ jobs:
       - name: Run tests
         run: make check
 
-      - name: Clean up
-        run: make clean
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+  
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: List Buildx builders
+        run: docker buildx ls
+
+      - name: DockerHub login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image for amd64
+        run: docker build --platform=linux/amd64 -t ekslitri/httpserver:amd64 --push .
+
+      - name: Build Docker image for arm64
+        run: docker build --platform=linux/arm64 -t ekslitri/httpserver:arm64 --push .
+
+      - name: Create Docker manifest
+        run: docker manifest create ekslitri/httpserver --amend ekslitri/httpserver:amd64 --amend ekslitri/httpserver:arm64
+
+      - name: Push Docker manifest
+        run: docker manifest push ekslitri/httpserver
